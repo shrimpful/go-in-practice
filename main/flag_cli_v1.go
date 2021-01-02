@@ -19,4 +19,5 @@ func main() {
 	}else {
 		fmt.Printf("Hello %s!\n", *name)
 	}
+	flag.PrintDefaults()
 }
