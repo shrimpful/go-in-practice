@@ -11,17 +11,17 @@ type testMessage struct {
 }
 
 func displayTest(w http.ResponseWriter, r *http.Request) {
-	data:= testMessage{"A test message."}
-	b,err:=json.Marshal(data)
+	data := testMessage{"A test message."}
+	b, err := json.Marshal(data)
 	if err != nil {
-		http.Error(w,"Internal Server Err",500)
+		http.Error(w, "Internal Server Err", 500)
 		return
 	}
-	w.Header().Set("Content-Type","application/json")
-	fmt.Fprint(w,string(b))
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(w, string(b))
 }
 
 func main() {
-	http.HandleFunc("/api/v1/test",displayTest)
-	http.ListenAndServe(":8080",nil)
+	http.HandleFunc("/api/v1/test", displayTest)
+	http.ListenAndServe(":8080", nil)
 }

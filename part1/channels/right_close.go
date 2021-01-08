@@ -23,15 +23,15 @@ func main() {
 }
 
 func send(ch chan<- string, done <-chan bool) {
-	for{
+	for {
 		select {
 		case <-done:
 			println("Done")
 			close(ch)
 			return
 		default:
-			ch<-"hello"
-			time.Sleep(500*time.Millisecond)
+			ch <- "hello"
+			time.Sleep(500 * time.Millisecond)
 		}
 	}
 }

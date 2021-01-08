@@ -6,10 +6,10 @@ import (
 )
 
 func main() {
-	logfile,_:=os.Create("./log.txt")
+	logfile, _ := os.Create("./log.txt")
 	defer logfile.Close()
 
-	logger:=log.New(logfile,"example ",log.LstdFlags|log.Lshortfile)
+	logger := log.New(logfile, "example ", log.LstdFlags|log.Lshortfile)
 
 	logger.Println("This is as regular message.")
 	logger.Fatalln("This is a fatal error.")

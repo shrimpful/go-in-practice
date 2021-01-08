@@ -8,16 +8,16 @@ import (
 )
 
 type EmailMessage struct {
-	From,Subject,Body string
-	To []string
+	From, Subject, Body string
+	To                  []string
 }
 
 type EmailCredentials struct {
-	Username,Password,Server string
-	Port int
+	Username, Password, Server string
+	Port                       int
 }
 
-const emailTemplate= `From {{.From}}
+const emailTemplate = `From {{.From}}
 To: {{.To}}
 Subject {{.Subject}}
 {{.Body}}`
@@ -25,28 +25,28 @@ Subject {{.Subject}}
 var t *template.Template
 
 func init() {
-	t=template.New("email")
+	t = template.New("email")
 	t.Parse(emailTemplate)
 }
 
 func main() {
-	message:=&EmailMessage{
-		From: "me@example.com",
-		To: []string{"you@example.com"},
+	message := &EmailMessage{
+		From:    "me@example.com",
+		To:      []string{"you@example.com"},
 		Subject: "A test",
-		Body: "Just saying hi",
+		Body:    "Just saying hi",
 	}
 
 	var body bytes.Buffer
-	t.Execute(&body,message)
+	t.Execute(&body, message)
 
-	authCreds:=&EmailCredentials{
+	authCreds := &EmailCredentials{
 		Username: "myUsername",
 		Password: "myPass",
-		Server: "smtp.example.com",
-		Port: 25,
+		Server:   "smtp.example.com",
+		Port:     25,
 	}
-	auth:=smtp.PlainAuth("",
+	auth := smtp.PlainAuth("",
 		authCreds.Username,
 		authCreds.Password,
 		authCreds.Server,

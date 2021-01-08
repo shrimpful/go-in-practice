@@ -14,5 +14,5 @@ func message() {
 func main() {
 	safely.Go(message)
 	println("Outside goroutine")
-	time.Sleep(1000*time.Millisecond)
+	time.Sleep(1000 * time.Millisecond)
 }

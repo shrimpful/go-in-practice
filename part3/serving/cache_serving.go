@@ -15,42 +15,42 @@ type cacheFile struct {
 }
 
 var cache map[string]*cacheFile
-var mutex =new(sync.RWMutex)
+var mutex = new(sync.RWMutex)
 
-func main() {//page231 todo
-	cache=make(map[string]*cacheFile)
-	http.HandleFunc("/",serveFiles)
-	http.ListenAndServe(":8080",nil)
+func main() { //page231 todo
+	cache = make(map[string]*cacheFile)
+	http.HandleFunc("/", serveFiles)
+	http.ListenAndServe(":8080", nil)
 }
 func serveFiles(res http.ResponseWriter, req *http.Request) {
 	mutex.RLock()
-	v,found:=cache[req.URL.Path]
+	v, found := cache[req.URL.Path]
 	mutex.RUnlock()
-	if !found{
+	if !found {
 		mutex.Lock()
 		defer mutex.Unlock()
 
-		fileName:="./files"+req.URL.Path
-		f,err:=os.Open(fileName)
+		fileName := "./files" + req.URL.Path
+		f, err := os.Open(fileName)
 		defer f.Close()
 		if err != nil {
-			http.NotFound(res,req)
+			http.NotFound(res, req)
 			return
 		}
 		var b bytes.Buffer
-		_,err=io.Copy(&b,f)
+		_, err = io.Copy(&b, f)
 		if err != nil {
-			http.NotFound(res,req)
+			http.NotFound(res, req)
 			return
 		}
-		r:=bytes.NewReader(b.Bytes())
+		r := bytes.NewReader(b.Bytes())
 
-		info,_:=f.Stat()
-		v:=&cacheFile{
+		info, _ := f.Stat()
+		v := &cacheFile{
 			content: r,
 			modTime: info.ModTime(),
 		}
-		cache[req.URL.Path]=v
+		cache[req.URL.Path] = v
 	}
-	http.ServeContent(res,req,req.URL.Path,v.modTime,v.content)
+	http.ServeContent(res, req, req.URL.Path, v.modTime, v.content)
 }

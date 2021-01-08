@@ -7,8 +7,8 @@ import (
 
 func main() {
 	defer func() {
-		if err:=recover();err!=nil{
-			fmt.Printf("Trapped panic: %s (%T)\n",err,err)
+		if err := recover(); err != nil {
+			fmt.Printf("Trapped panic: %s (%T)\n", err, err)
 		}
 	}()
 	yikes()

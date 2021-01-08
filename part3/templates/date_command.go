@@ -24,16 +24,16 @@ func dateFormat(layout string, d time.Time) string {
 	return d.Format(layout)
 }
 func serveTemplate(res http.ResponseWriter, req *http.Request) {
-	t:=template.New("date")
+	t := template.New("date")
 	t.Funcs(funcMap)
 	t.Parse(tpl)
-	data:= struct {
+	data := struct {
 		Date time.Time
 	}{Date: time.Now()}
-	t.Execute(res,data)
+	t.Execute(res, data)
 }
 
 func main() {
-	http.HandleFunc("/",serveTemplate)
-	http.ListenAndServe(":8080",nil)
+	http.HandleFunc("/", serveTemplate)
+	http.ListenAndServe(":8080", nil)
 }

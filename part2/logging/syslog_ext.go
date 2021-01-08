@@ -3,7 +3,7 @@ package main
 import "log/syslog"
 
 func main() {
-	logger,err:=syslog.New(syslog.LOG_LOCAL3,"narwhal")
+	logger, err := syslog.New(syslog.LOG_LOCAL3, "narwhal")
 	if err != nil {
 		panic("Cannot attach to syslog")
 	}

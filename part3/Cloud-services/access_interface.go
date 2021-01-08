@@ -29,15 +29,15 @@ type LocalFile struct {
 func (l LocalFile) Load(path string) (io.ReadCloser, error) {
 	p := filepath.Join(l.Base, path)
 	var oerr error
-	o,err:=os.Open(p)
-	if err!=nil && os.IsNotExist(err){
-		log.Printf("Unable to find %s",path)
-		oerr=ErrFileNotFound
-	}else if err!=nil{
-		log.Printf("Error loading file %s, err: %s",path,err)
-		oerr=ErrCannotLoadFile
+	o, err := os.Open(p)
+	if err != nil && os.IsNotExist(err) {
+		log.Printf("Unable to find %s", path)
+		oerr = ErrFileNotFound
+	} else if err != nil {
+		log.Printf("Error loading file %s, err: %s", path, err)
+		oerr = ErrCannotLoadFile
 	}
-	return o,oerr
+	return o, oerr
 }
 
 func (l LocalFile) Save(path string, body io.ReadSeeker) error {

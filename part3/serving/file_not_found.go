@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	fs.NotFoundHandler= func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type","text/plain; charset=utf-8")
-		fmt.Fprintln(w,"The requested page could not be found.")
+	fs.NotFoundHandler = func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		fmt.Fprintln(w, "The requested page could not be found.")
 	}
 
-	dir:=http.Dir("./files")
-	http.ListenAndServe(":8080",fs.FileServer(dir))
+	dir := http.Dir("./files")
+	http.ListenAndServe(":8080", fs.FileServer(dir))
 }

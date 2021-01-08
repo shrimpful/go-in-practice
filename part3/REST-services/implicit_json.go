@@ -30,7 +30,7 @@ var ks = []byte(`{
 
 func main() {
 	var f interface{}
-	err:=json.Unmarshal(ks,&f)
+	err := json.Unmarshal(ks, &f)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -41,19 +41,19 @@ func main() {
 func printJSON(v interface{}) {
 	switch vv := v.(type) {
 	case string:
-		fmt.Println("is string",vv)
+		fmt.Println("is string", vv)
 	case float64:
-		fmt.Println("is float64",vv)
+		fmt.Println("is float64", vv)
 	case []interface{}:
 		fmt.Println("is an array:")
-		for i,u:=range vv{
-			fmt.Print(i," ")
+		for i, u := range vv {
+			fmt.Print(i, " ")
 			printJSON(u)
 		}
 	case map[string]interface{}:
 		fmt.Println("is an object:")
-		for i,u:=range vv{
-			fmt.Print(i," ")
+		for i, u := range vv {
+			fmt.Print(i, " ")
 			printJSON(u)
 		}
 	default:

@@ -7,19 +7,19 @@ import (
 	"net"
 )
 
-type server struct {}
+type server struct{}
 
 func (s *server) Say(ctx context.Context, in *pb.HelloRequest) (*pb.HelloResponse, error) {
-	msg:="Hello " + in.Name + "!"
-	return &pb.HelloResponse{Message: msg},nil
+	msg := "Hello " + in.Name + "!"
+	return &pb.HelloResponse{Message: msg}, nil
 }
 
 func main() {
-	l,err:=net.Listen("tcp",":55555")
+	l, err := net.Listen("tcp", ":55555")
 	if err != nil {
 		return
 	}
-	s:=grpc.NewServer()
+	s := grpc.NewServer()
 	pb.RegisterHelloServer(s, &server{})
 	s.Serve(l)
 }

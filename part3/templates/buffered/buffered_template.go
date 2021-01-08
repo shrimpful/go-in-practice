@@ -10,27 +10,28 @@ import (
 var t *template.Template
 
 func init() {
-	t=template.Must(template.ParseFiles("simple.html"))
+	t = template.Must(template.ParseFiles("simple.html"))
 }
+
 type Page struct {
-	Title,Content string
+	Title, Content string
 }
 
 func displayPage(w http.ResponseWriter, r *http.Request) {
-	p:=&Page{
-		Title: "An Example",
-		Content:"Have fun stormin' da castle.",
+	p := &Page{
+		Title:   "An Example",
+		Content: "Have fun stormin' da castle.",
 	}
 	var b bytes.Buffer
-	err:=t.Execute(&b,p)
+	err := t.Execute(&b, p)
 	if err != nil {
-		fmt.Fprint(w,"A error occurred.")
+		fmt.Fprint(w, "A error occurred.")
 		return
 	}
 	b.WriteTo(w)
 }
 
 func main() {
-	http.HandleFunc("/",displayPage)
-	http.ListenAndServe(":8080",nil)
+	http.HandleFunc("/", displayPage)
+	http.ListenAndServe(":8080", nil)
 }
